@@ -3,4 +3,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Windows-AnyCPU'">
     <DebuggerFlavor>WindowsLocal</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup>
+    <ReferenceCachePath>C:\Users\Damian\AppData\Local\Temp\Plunder_refcache</ReferenceCachePath>
+    <ShowAllFiles>true</ShowAllFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Windows Phone (Universal)'">
+    <DebuggerFlavor>Win10Emulator10Wvga4</DebuggerFlavor>
+  </PropertyGroup>
 </Project>
