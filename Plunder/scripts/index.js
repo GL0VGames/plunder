@@ -24,28 +24,42 @@
 	// Login
 
 
-	// Parse data (signup)
-	var d = new Date();
-	localStorage.clientKey = MD5(user.username + user.password + d.getTime());
+	// Parse Data (Signup)
 	$('#signupSubmit').click(function () {
+		var typeEnum = Object.freeze([ "fire", "water", "earth", "air", "electricity"]);
 
-		var uname = toString($('#suname').val());
-		var pass = toString($('#spass').val());
+		// Create Deck
+		var deck = [];
+		for (var count = 0; count < 30; count++) {
+			var type = typeEnum[Math.floor(Math.random() * 5)];
+			var strength = Math.floor(Math.random() * 5);
+			deck[count] = {
+				"element": type,
+				"strength": strength
+			}
+		}
+		sessionStorage.deck = JSON.stringify(deck);
+		
+		// Get Data From Page
+		var uname = $('#suname').val().toString();
+		var pass = MD5($('#spass').val().toString());
+		var d = new Date();
+		sessionStorage.clientKey = MD5(uname + pass + d.getTime());
 
-		// Validate new user (checks for unique username)
+		// Validate New User (checks for unique username)
+
+
+		// Send New (with empty deck)
+		var user = {
+			"username": uname,
+			"password": pass,
+			"key": sessionStorage.clientKey,
+			"deck": deck
+		}
+
+		// Send User (if server allows)
 
 
 		$('#modal1').closeModal();
-		// Send new (with empty deck)
-		var user = {
-			"username": uname,
-			"password": MD5(pass),
-			"key": localStorage.clientKey,
-			"deck": null
-		}
-
-		// Create New User Deck
-
-		// Send deck (if server allows)
 	});
 });
