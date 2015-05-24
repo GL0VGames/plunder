@@ -1,0 +1,26 @@
+{
+	"name": "Plunder",
+	"version": "0.0.1",
+	"contributors": [{
+		"name": "Graham Barber",
+		"email": "grahammbarber@gmail.com"
+	}, {
+		"name": "Damian Kulp",
+		"email": "damiankulp@gmail.com"
+	}, {
+		"name": "Lilly Watts",
+		"email": "scientificlilly@gmail.com"
+	}, {
+		"name": "Matthew Miller",
+		"email": "mattgnmiller@gmail.com"
+	}],
+	"dependencies": {
+		"express"    : "~4.7.2",
+		"mongoose"   : "~3.6.2",
+		"morgan"     : "~1.2.2",
+		"socket.io": "*",
+		"body-parser": "~1.5.2",
+		"method-override": "~2.1.2",
+		"nodemon": "*"
+	}
+}
