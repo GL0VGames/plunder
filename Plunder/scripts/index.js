@@ -40,49 +40,8 @@
 		}
 	});
 
-	// Parse Data (Signup)
-	$('#signupSubmit').click(function () {
-		var typeEnum = Object.freeze([ "fire", "water", "earth", "air", "electricity"]);
-
-		// Create Deck
-		var deck = [];
-		for (var count = 0; count < 30; count++) {
-			var type = typeEnum[Math.floor(Math.random() * 5)];
-			var strength = Math.floor(Math.random() * 5);
-			deck[count] = {
-				"element": type,
-				"strength": strength
-			}
-		}
-		sessionStorage.deck = JSON.stringify(deck);
-		
-		// Get Data From Page
-		var uname = $('#suname').val().toString();
-		var pass = MD5($('#spass').val().toString());
-		var d = new Date();
-		sessionStorage.clientKey = MD5(uname + pass + d.getTime());
-
-		// Validate New User (checks for unique username) (DATABASE)
-		
-
-		// Send New (with empty deck)
-		var user = {
-			"username": uname,
-			"password": pass,
-			"key": sessionStorage.clientKey,
-			"deck": deck
-		}
-
-		// Send User (if server allows) (DATABASE)
-
-
-		// End
-		$('#modal1').closeModal();
-		$('.logged').html("Sign Out");
-	});
-
-	// Recolor svg's
-	$('#deck').click(function () {
+	// Assign Images
+	function images() {
 		if ($('.png').length > 0) {
 			var pngs = $('.png');
 			for (var x = 0; x < pngs.length; x++) {
@@ -147,5 +106,50 @@
 				}
 			}
 		}
+	}
+
+	// Parse Data (Signup)
+	$('#signupSubmit').click(function () {
+		var typeEnum = Object.freeze([ "fire", "water", "earth", "air", "electricity"]);
+
+		// Create Deck
+		var deck = [];
+		for (var count = 0; count < 30; count++) {
+			var type = typeEnum[Math.floor(Math.random() * 5)];
+			var strength = Math.floor(Math.random() * 5);
+			deck[count] = {
+				"element": type,
+				"strength": strength
+			}
+		}
+		sessionStorage.deck = JSON.stringify(deck);
+		
+		// Get Data From Page
+		var uname = $('#suname').val().toString();
+		var pass = MD5($('#spass').val().toString());
+		var d = new Date();
+		sessionStorage.clientKey = MD5(uname + pass + d.getTime());
+
+		// Validate New User (checks for unique username) (DATABASE)
+		
+
+		// Send New (with empty deck)
+		var user = {
+			"username": uname,
+			"password": pass,
+			"key": sessionStorage.clientKey,
+			"deck": deck
+		}
+
+		// Send User (if server allows) (DATABASE)
+
+
+		// End
+		var scope = $('[ng-controller="plunderController"]').scope();
+		scope.getDeck();
+		scope.$apply();
+		images();
+		$('#modal1').closeModal();
+		$('.logged').html("Sign Out");
 	});
 });
