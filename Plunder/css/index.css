@@ -6,10 +6,6 @@ nav {
 	background-color: #555555;
 }
 
-.btn-flat {
-	font-style: normal;
-}
-
-.svg {
-	height: 100%;
+#deck, #friends, #store, #options {
+	width: 1000px;
 }
