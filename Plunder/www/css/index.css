@@ -5,3 +5,7 @@
 nav {
 	background-color: #555555;
 }
+
+.deck, .friends, .store, .options {
+	height: 100%;
+}
