@@ -35,26 +35,49 @@
 
 	</head>
 	<body ng-controller="plunderController">
-		<!--$('.main-car').slick('slickGoTo', 0, true);-->
 		<div class="navbar-fixed">
 			<nav>
 				<div class="nav-wrapper">
-					<a href="#!" class="brand-logo center"><img style="width:20%;margin-top:2px;" id="logo-brand" src="images/logo2.svg" /></a>
-					<a href="#" data-activates="mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+					<a href="#!" class="brand-logo center"><img style="height: 64px;" id="logo-brand" src="images/logo2.svg" /></a>
+					<a href="#" data-activates="mobile" class="button-collapse show-on-large"><i class="mdi-action-settings"></i></a>
 					<ul class="hide-on-med-and-down left">
-						<li><a class="deckButton waves-effect waves-light"><i class="left mdi-action-home"></i>Deck</a></li>
+						<li><a class="deckButton waves-effect waves-light"><i class="left mdi-action-home"></i>Set</a></li>
 						<li><a class="friendsButton waves-effect waves-light"><i class="left mdi-action-account-child"></i>Friends</a></li>
 						<li><a class="storeButton waves-effect waves-light"><i class="left mdi-action-shopping-cart"></i>Store</a></li>
-						<li><a class="optionsButton waves-effect waves-light"><i class="left mdi-action-settings"></i>Options</a></li>
 					</ul>
 					<ul class="hide-on-med-and-down right">
-						<li><a class="logged waves-effect waves-light btn modal-trigger" href="#modal1">Login</a></li>
+						<li><a class="logged waves-effect waves-light btn-flat modal-trigger" style="color:white;" href="#modal1">Login</a></li>
 					</ul>
 					<ul class="side-nav" id="mobile">
-						<li><a class="deckButton waves-effect waves-light"><i class="left mdi-action-home"></i>Deck</a></li>
+						<li><a class="deckButton waves-effect waves-light"><i class="left mdi-action-home"></i>Set</a></li>
 						<li><a class="friendsButton waves-effect waves-light"><i class="left mdi-action-account-child"></i>Friends</a></li>
 						<li><a class="storeButton waves-effect waves-light"><i class="left mdi-action-shopping-cart"></i>Store</a></li>
-						<li><a class="optionsButton waves-effect waves-light"><i class="left mdi-action-settings"></i>Options</a></li>
+						<li><span class="divider"></span></li>
+						<li>
+							<div class="switch black-text" syle="color:black;">
+								Notifications
+								<label class="right">
+									Off
+									<input id="notifications" type="checkbox">
+									<span class="lever"></span>
+									On
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="switch black-text">
+								Theme
+								<label class="right">
+									Dark
+									<input id="theme" type="checkbox">
+									<span class="lever"></span>
+									Light
+								</label>
+							</div>
+						</li>
+						<li><a class="waves-effect waves-dark">Display</a></li>
+						<li><a class="waves-effect waves-dark">Sort</a></li>
+						<li><a class="waves-effect waves-dark">Game Order</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -96,23 +119,16 @@
 			<div class="main-car">
 				<div id="deck">
 					<div class="row">
-						<div style="width:100%;" class="col s12 m6">
-							<div class="card col s12 l2" ng-repeat="card in deck">
+						<div class="col s12" style="width:100%;">
+							<div class="card col s6 m2 l1" ng-repeat="card in deck" ng-cloak="ng-cloak">
 								<div class="card-image">
 									<img class="png" id="{{card.element}}-{{card.strength}}-{{$index}}" />
 								</div>
-								<div class="card-content">
-									<p>
-										{{card.element}}
-									</p>
-									<p>
-										{{card.strength+1}}
-									</p>
+								<div class="card-content"></div>
+								<div class="card-action">
+									<a>{{card.element}}</a>
+									<a>{{card.strength+1}}</a>
 								</div>
-								<!--<div class="card-action">
-									<a href="#">This is a link</a>
-									<a href='#'>This is a link</a>
-								</div>-->
 							</div>
 						</div>
 					</div>
@@ -151,7 +167,7 @@
 					<div id="options">
 						<div class="row">
 							<div style="width:100%;" class="col s12 m6">
-								<div class="card col s12 l2">
+								<div class="card col">
 									<div class="card-content">
 										<div class="switch">
 											Notifications

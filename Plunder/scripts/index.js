@@ -1,16 +1,37 @@
 ﻿$(function () {
 	// Plugins and stuff
-	$(".button-collapse").sideNav();
+	$(".button-collapse").sideNav({
+			"menuWidth": 270
+	});
 	$('.main-car').slick();
 	$('.modal-trigger').leanModal({
 		"dismissible": false
 	});
 	$('.preloader-wrapper').hide();
 
+	$('#theme').change(function () {
+		if ($('#theme').is(':checked')) {
+			// Light theme
+			$('nav').css("backgroundColor", "silver");
+			$('nav a').css("color", "black");
+			$('.side-nav').css("backgroundColor", "white");
+			$('body').css("backgroundColor", "gainsboro");
+			$('.card').css("backgroundColor", "white");
+		} else {
+			// Dark theme
+			$('nav').css("backgroundColor", "#555555");
+			$('nav a').css("color", "white");
+			$('.side-nav').css("backgroundColor", "rgba(219, 219, 219, 1)");
+			$('body').css("backgroundColor", "rgb(30, 30, 30)");
+			$('.card').css("backgroundColor", "rgb(62, 62, 66)");
+		}
+		$('.side-nav a').css("color", "black");
+	})
+
 	// Slide content when you click menu options
 	$('.deckButton').click(function () {
 		$('.main-car').slick('slickGoTo', 0);
-		console.log($('.main-car').slick('slickCurrentSlide'));
+		//console.log($('.main-car').slick('slickCurrentSlide'));
 	});
 	$('.friendsButton').click(function () {
 		$('.main-car').slick('slickGoTo', 1);
@@ -19,7 +40,10 @@
 		$('.main-car').slick('slickGoTo', 2);
 	});
 	$('.optionsButton').click(function () {
-		$('.main-car').slick('slickGoTo', 3);
+		if ($('.main-car').slick('slickCurrentSlide') === 0) {
+			//$('#deckSideNav').sideNav('show');
+		}
+		else $('.main-car').slick('slickGoTo', 3);
 	});
 
 	$('.logged').click(function () {
@@ -114,7 +138,7 @@
 
 		// Create Deck
 		var deck = [];
-		for (var count = 0; count < 30; count++) {
+		for (var count = 0; count < 36; count++) {
 			var type = typeEnum[Math.floor(Math.random() * 5)];
 			var strength = Math.floor(Math.random() * 5);
 			deck[count] = {

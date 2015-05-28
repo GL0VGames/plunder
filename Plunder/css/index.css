@@ -1,5 +1,5 @@
 ﻿body {
-	background-color: gainsboro;
+	background-color: rgb(30, 30, 30);
 }
 
 nav {
@@ -8,4 +8,25 @@ nav {
 
 #deck, #friends, #store, #options {
 	width: 1000px;
+}
+
+.logged .button-flat {
+	color: white;
+	color: rgb(30, 30, 30)
+}
+
+.side-nav li div {
+	padding-left: 15px;
+}
+
+.side-nav {
+	background-color: rgba(219, 219, 219, 1);
+}
+
+.card {
+	background-color: rgb(62, 62, 66);
+}
+
+.card-action a {
+	cursor: default;
 }
