@@ -1,5 +1,6 @@
 ﻿$(function () {
 	function lightTheme() {
+		localStorage.theme = "light";
 		$('nav').css("backgroundColor", "silver");
 		$('nav a').css("color", "black");
 		$('.modal, .tabs .tab a, .modal .modal-footer, .side-nav').css("backgroundColor", "white");
@@ -7,13 +8,15 @@
 		$('.card').css("backgroundColor", "white");
 	}
 	function darkTheme() {
+		localStorage.theme = "dark";
 		$('nav').css("backgroundColor", "#555555");
 		$('nav a').css("color", "white");
 		$('.modal, .tabs .tab a, .modal .modal-footer, .side-nav').css("backgroundColor", "rgba(219, 219, 219, 1)");
 		$('body').css("backgroundColor", "rgb(30, 30, 30)");
 		$('.card').css("backgroundColor", "rgb(62, 62, 66)");
 	}
-	// Get deck
+
+	// Get deck and user
 	var scope = $('[ng-controller="plunderController"]').scope();
 	scope.getDeck();
 	scope.getUser();
@@ -21,6 +24,16 @@
 	images();
 	if (typeof (sessionStorage.username) !== "undefined")
 		$('.logged').html("Sign Out");
+
+	// Set theme from localStorage if it's there
+	if (typeof (localStorage.theme) !== "undefined") {
+		if (localStorage.theme == "light") {
+			lightTheme();
+			$('#theme').click();
+		}
+	} else {
+		localStorage.theme = "dark";
+	}
 
 	// Plugins and stuff
 	$(".button-collapse").sideNav({
