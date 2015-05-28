@@ -15,18 +15,34 @@ nav {
 	color: rgb(30, 30, 30)
 }
 
+.modal, .tabs .tab a, .modal .modal-footer, .side-nav {
+	background-color: rgba(219, 219, 219, 1);
+}
+
 .side-nav li div {
 	padding-left: 15px;
 }
 
-.side-nav {
-	background-color: rgba(219, 219, 219, 1);
-}
-
 .card {
 	background-color: rgb(62, 62, 66);
+	transition: all .3s ease-out;
 }
 
-.card-action a {
+.card .card-action {
+	padding: 10% 0px 10% 0;
+	height: 7em;
+	font-size: 80%;
+}
+
+.card .card-action a {
 	cursor: default;
+	margin: initial;
+}
+
+.welcome {
+	transition: all .3s ease-out;
+}
+
+.welcome:hover {
+	background-color: initial;
 }

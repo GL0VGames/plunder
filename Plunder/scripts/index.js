@@ -1,29 +1,44 @@
 ﻿$(function () {
+	function lightTheme() {
+		$('nav').css("backgroundColor", "silver");
+		$('nav a').css("color", "black");
+		$('.modal, .tabs .tab a, .modal .modal-footer, .side-nav').css("backgroundColor", "white");
+		$('body').css("backgroundColor", "gainsboro");
+		$('.card').css("backgroundColor", "white");
+	}
+	function darkTheme() {
+		$('nav').css("backgroundColor", "#555555");
+		$('nav a').css("color", "white");
+		$('.modal, .tabs .tab a, .modal .modal-footer, .side-nav').css("backgroundColor", "rgba(219, 219, 219, 1)");
+		$('body').css("backgroundColor", "rgb(30, 30, 30)");
+		$('.card').css("backgroundColor", "rgb(62, 62, 66)");
+	}
+	// Get deck
+	var scope = $('[ng-controller="plunderController"]').scope();
+	scope.getDeck();
+	scope.getUser();
+	scope.$apply();
+	images();
+	if (typeof (sessionStorage.username) !== "undefined")
+		$('.logged').html("Sign Out");
+
 	// Plugins and stuff
 	$(".button-collapse").sideNav({
 			"menuWidth": 270
 	});
 	$('.main-car').slick();
 	$('.modal-trigger').leanModal({
-		"dismissible": false
+		//"dismissible": false
 	});
 	$('.preloader-wrapper').hide();
 
 	$('#theme').change(function () {
 		if ($('#theme').is(':checked')) {
 			// Light theme
-			$('nav').css("backgroundColor", "silver");
-			$('nav a').css("color", "black");
-			$('.side-nav').css("backgroundColor", "white");
-			$('body').css("backgroundColor", "gainsboro");
-			$('.card').css("backgroundColor", "white");
+			lightTheme();
 		} else {
 			// Dark theme
-			$('nav').css("backgroundColor", "#555555");
-			$('nav a').css("color", "white");
-			$('.side-nav').css("backgroundColor", "rgba(219, 219, 219, 1)");
-			$('body').css("backgroundColor", "rgb(30, 30, 30)");
-			$('.card').css("backgroundColor", "rgb(62, 62, 66)");
+			darkTheme();
 		}
 		$('.side-nav a').css("color", "black");
 	})
@@ -48,7 +63,14 @@
 
 	$('.logged').click(function () {
 		if ($(($('.logged'))[0]).text() == "Sign Out") {
-			sessionStorage = "undefined";
+			delete sessionStorage.clientKey;
+			delete sessionStorage.username;
+			delete sessionStorage.deck;
+			var scope = $('[ng-controller="plunderController"]').scope();
+			scope.getDeck();
+			scope.getUser();
+			scope.$apply();
+			$('.logged').html("Login");
 		}
 	});
 
@@ -62,6 +84,65 @@
 			"username": uname,
 			"password": pass
 		}
+
+		sessionStorage.username = uname;
+		var scope = $('[ng-controller="plunderController"]').scope();
+		scope.getDeck();
+		scope.getUser();
+		scope.$apply();
+		images();
+		$('#theme').change();
+		$('#modal1').closeModal();
+		$('.logged').html("Sign Out");
+	});
+
+
+	// Parse Data (Signup)
+	$('#signupSubmit').click(function () {
+		var typeEnum = Object.freeze([ "fire", "water", "earth", "air", "electricity"]);
+
+		// Create Deck
+		var deck = [];
+		for (var count = 0; count < 36; count++) {
+			var type = typeEnum[Math.floor(Math.random() * 5)];
+			var strength = Math.floor(Math.random() * 5);
+			deck[count] = {
+				"element": type,
+				"strength": strength
+			}
+		}
+		sessionStorage.deck = JSON.stringify(deck);
+		
+		// Get Data From Page
+		var uname = $('#suname').val().toString();
+		var pass = MD5($('#spass').val().toString());
+		var d = new Date();
+		sessionStorage.clientKey = MD5(uname + pass + d.getTime());
+
+		// Validate New User (checks for unique username) (DATABASE)
+		
+
+		// Send New (with empty deck)
+		var user = {
+			"username": uname,
+			"password": pass,
+			"key": sessionStorage.clientKey,
+			"deck": deck
+		}
+
+		// Send User (if server allows) (DATABASE)
+
+
+		// End
+		sessionStorage.username = uname;
+		var scope = $('[ng-controller="plunderController"]').scope();
+		scope.getDeck();
+		scope.getUser();
+		scope.$apply();
+		images();
+		$('#theme').change();
+		$('#modal1').closeModal();
+		$('.logged').html("Sign Out");
 	});
 
 	// Assign Images
@@ -131,49 +212,4 @@
 			}
 		}
 	}
-
-	// Parse Data (Signup)
-	$('#signupSubmit').click(function () {
-		var typeEnum = Object.freeze([ "fire", "water", "earth", "air", "electricity"]);
-
-		// Create Deck
-		var deck = [];
-		for (var count = 0; count < 36; count++) {
-			var type = typeEnum[Math.floor(Math.random() * 5)];
-			var strength = Math.floor(Math.random() * 5);
-			deck[count] = {
-				"element": type,
-				"strength": strength
-			}
-		}
-		sessionStorage.deck = JSON.stringify(deck);
-		
-		// Get Data From Page
-		var uname = $('#suname').val().toString();
-		var pass = MD5($('#spass').val().toString());
-		var d = new Date();
-		sessionStorage.clientKey = MD5(uname + pass + d.getTime());
-
-		// Validate New User (checks for unique username) (DATABASE)
-		
-
-		// Send New (with empty deck)
-		var user = {
-			"username": uname,
-			"password": pass,
-			"key": sessionStorage.clientKey,
-			"deck": deck
-		}
-
-		// Send User (if server allows) (DATABASE)
-
-
-		// End
-		var scope = $('[ng-controller="plunderController"]').scope();
-		scope.getDeck();
-		scope.$apply();
-		images();
-		$('#modal1').closeModal();
-		$('.logged').html("Sign Out");
-	});
 });
